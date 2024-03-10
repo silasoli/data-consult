@@ -3,7 +3,6 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PeopleService } from '../services/people.service';
 import { IDQueryDTO } from '../dto/id-query.dto';
 import { CPFQueryDTO } from '../dto/cpf-query.dto';
-import { People } from 'src/database/entities/people.entity';
 import { PeopleResponseDto } from '../dto/people-response.dto';
 import { PageDto } from 'src/utils/dto/PageDto.dto';
 import { PageOptionsDto } from 'src/utils/dto/PageOptionsDto.dto';
@@ -15,12 +14,11 @@ export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
   @ApiOperation({ summary: 'List people' })
-  @ApiResponse({
+  @ApiPaginatedResponse({
     status: 200,
+    type: PeopleResponseDto,
     description: 'People listing returned successfully',
-    // type: PageDto,
   })
-  @ApiPaginatedResponse(PeopleResponseDto)
   @Get()
   public async findAll(
     @Query() query: PageOptionsDto,

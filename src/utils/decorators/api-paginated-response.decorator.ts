@@ -1,14 +1,23 @@
 import { applyDecorators, Type } from '@nestjs/common';
-import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
+import { ApiExtraModels, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 import { PageDto } from '../dto/PageDto.dto';
 
-export const ApiPaginatedResponse = <TModel extends Type<any>>(
-  model: TModel,
+interface ApiPaginatedResponseOptions<TModel> {
+  type: Type<TModel>;
+  description: string;
+  status: number,
+}
+
+export const ApiPaginatedResponse = <TModel>(
+  options: ApiPaginatedResponseOptions<TModel>,
 ) => {
+  const { type, description, status } = options;
+
   return applyDecorators(
     ApiExtraModels(PageDto),
-    ApiOkResponse({
-      description: 'Successfully received model list',
+    ApiResponse({
+      status,
+      description,
       schema: {
         allOf: [
           { $ref: getSchemaPath(PageDto) },
@@ -16,7 +25,7 @@ export const ApiPaginatedResponse = <TModel extends Type<any>>(
             properties: {
               data: {
                 type: 'array',
-                items: { $ref: getSchemaPath(model) },
+                items: { $ref: getSchemaPath(type) },
               },
             },
           },
