@@ -14,7 +14,7 @@ export default registerAs('database', () => {
     autoLoadEntities: true,
     entities: [__dirname + '/../**/database/entities/*.entity{.ts,.js}'],
     // migrations: [__dirname + '/../**/database/migrations/*{.ts,.js}'],
-    synchronize: true,
+    synchronize: false,
     migrationsRun: false,
     cli: {
       migrationsDir: 'src/database/migrations',
