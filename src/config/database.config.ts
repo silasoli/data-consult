@@ -19,5 +19,8 @@ export default registerAs('database', () => {
     cli: {
       migrationsDir: 'src/database/migrations',
     },
+    // ssl:{
+    //   rejectUnauthorized: false
+    // }
   } as DataSourceOptions;
 });
