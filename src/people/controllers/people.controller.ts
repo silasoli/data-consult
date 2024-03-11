@@ -5,8 +5,8 @@ import { IDQueryDTO } from '../dto/id-query.dto';
 import { CPFQueryDTO } from '../dto/cpf-query.dto';
 import { PeopleResponseDto } from '../dto/people-response.dto';
 import { PageDto } from 'src/utils/dto/PageDto.dto';
-import { PageOptionsDto } from 'src/utils/dto/PageOptionsDto.dto';
 import { ApiPaginatedResponse } from 'src/utils/decorators/api-paginated-response.decorator';
+import { PageOptionsDto } from 'src/utils/dto/PageOptionsDto.dto';
 
 @ApiTags('Peoples')
 @Controller('people')
@@ -30,7 +30,7 @@ export class PeopleController {
   @ApiResponse({
     status: 200,
     description: 'People returned successfully',
-    type: [PeopleResponseDto],
+    type: PeopleResponseDto,
   })
   @Get('id/:id([0-9]+)')
   public async findOneByID(

@@ -21,7 +21,7 @@ export class PeopleService {
 
     queryBuilder
       .orderBy('people.id', dto.order)
-      .skip(dto.skip)
+      .skip((dto.page - 1) * dto.take)
       .take(dto.take);
 
     const [data, itemCount] = await queryBuilder.getManyAndCount();
