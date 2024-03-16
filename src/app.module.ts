@@ -4,6 +4,7 @@ import { PeopleModule } from './people/people.module';
 import { ConfigModule } from '@nestjs/config';
 import databaseConfig from './config/database.config';
 import { DatabaseModule } from './database/database.module';
+import { CompaniesModule } from './companies/companies.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { DatabaseModule } from './database/database.module';
       load: [databaseConfig],
     }),
     DatabaseModule,
-    PeopleModule
+    PeopleModule,
+    CompaniesModule
   ],
   controllers: [AppController],
 })
