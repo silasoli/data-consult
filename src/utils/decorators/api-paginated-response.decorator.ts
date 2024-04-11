@@ -5,7 +5,7 @@ import { PageDto } from '../dto/PageDto.dto';
 interface ApiPaginatedResponseOptions<TModel> {
   type: Type<TModel>;
   description: string;
-  status: number,
+  status: number;
 }
 
 export const ApiPaginatedResponse = <TModel>(

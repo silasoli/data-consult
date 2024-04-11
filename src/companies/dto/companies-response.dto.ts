@@ -104,10 +104,10 @@ export class CompanyResponseDto {
   cep: string;
 
   @ApiProperty({ type: String })
-  houseNumber: string
+  houseNumber: string;
 
   @ApiProperty({ type: String })
-  street: string
+  street: string;
 
   @ApiProperty({ type: String })
   neighborhood: string;

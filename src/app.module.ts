@@ -14,7 +14,7 @@ import { CompaniesModule } from './companies/companies.module';
     }),
     DatabaseModule,
     PeopleModule,
-    CompaniesModule
+    CompaniesModule,
   ],
   controllers: [AppController],
 })
