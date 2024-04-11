@@ -1,8 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AxiosResponse } from 'axios';
+import { AxiosResponse, HttpStatusCode } from 'axios';
 import { Company } from '../types/companies.type';
+import { COMPANIES_ERRORS } from '../constants/companies-errors';
 
 @Injectable()
 export class CompaniesService {
@@ -12,10 +13,25 @@ export class CompaniesService {
   ) {}
 
   public async findOne(cnpj: string): Promise<AxiosResponse<Company>> {
-    const response = await this.httpService.axiosRef.get(
-      `/${cnpj}`,
-    );
+    try {
+      const COMPANY_API_URL = this.config.get('COMPANY_API_URL');
+      const response = await this.httpService.axiosRef.get(
+        `${COMPANY_API_URL}/${cnpj}`,
+      );
 
-    return response.data as AxiosResponse<Company>;
+      if (response.data?.message === 'CNPJ inválido')
+        throw COMPANIES_ERRORS.INVALID_CNPJ;
+
+      return response.data as AxiosResponse<Company>;
+    } catch (error) {
+      if (error?.response.status === HttpStatusCode.TooManyRequests)
+        throw COMPANIES_ERRORS.MANY_REQUESTS;
+
+      if (error?.response.status === HttpStatusCode.NotFound)
+        throw COMPANIES_ERRORS.NOT_FOUND;
+
+      if (error?.status === HttpStatusCode.UnprocessableEntity)
+        throw COMPANIES_ERRORS.INVALID_CNPJ;
+    }
   }
 }

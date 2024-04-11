@@ -4,7 +4,7 @@ import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AxiosResponse } from 'axios';
 import { Company } from '../types/companies.type';
 import { CompanyResponseDto } from '../dto/companies-response.dto';
-
+import { CNPJQueryDTO } from '../dto/cnpj-query.dto';
 
 @ApiTags('Companies')
 @Controller('companies')
@@ -17,8 +17,8 @@ export class CompaniesController {
     type: CompanyResponseDto,
     description: 'Company returned successfully',
   })
-  @Get(':cnpj')
-  findOne(@Param('cnpj') cnpj: string): Promise<AxiosResponse<Company>> {
-    return this.companiesService.findOne(cnpj);
+  @Get('cnpj/:cnpj')
+  findOne(@Param() data: CNPJQueryDTO): Promise<AxiosResponse<Company>> {
+    return this.companiesService.findOne(data.cnpj);
   }
 }
