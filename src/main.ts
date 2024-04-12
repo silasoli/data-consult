@@ -18,8 +18,8 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Data consult API')
-    .setDescription('Data consult API developed by @silasoli')
+    .setTitle('PK FINDER API')
+    .setDescription('PK FINDER API developed by P.K INC')
     .setVersion('1.0')
     // .addBearerAuth()
     .build();
