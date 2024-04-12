@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { People } from 'src/database/entities/people.entity';
+import { People } from '../../database/entities/people.entity';
 import { Repository } from 'typeorm';
 import { PeopleResponseDto } from '../dto/people-response.dto';
-import { PageDto } from 'src/utils/dto/PageDto.dto';
-import { PageMetaDto } from 'src/utils/dto/PageMetaDto.dto';
-import { PageOptionsDto } from 'src/utils/dto/PageOptionsDto.dto';
+import { PageDto } from '../../utils/dto/PageDto.dto';
+import { PageMetaDto } from '../../utils/dto/PageMetaDto.dto';
+import { PageOptionsDto } from '../../utils/dto/PageOptionsDto.dto';
 
 @Injectable()
 export class PeopleService {

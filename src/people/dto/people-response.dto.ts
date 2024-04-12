@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { People } from 'src/database/entities/people.entity';
+import { People } from '../../database/entities/people.entity';
 
 export class PeopleResponseDto {
   constructor(people: People) {
