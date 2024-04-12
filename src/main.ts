@@ -26,14 +26,20 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  const customOptions: SwaggerCustomOptions = {
+  SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
-      // persistAuthorization: true,
+      persistAuthorization: true,
+      tagsSorter: 'alpha',
+      operationsSorter: '',
       docExpansion: 'none',
     },
-  };
-
-  SwaggerModule.setup('docs', app, document, customOptions);
+    customCssUrl:
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css',
+    customJs: [
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.js',
+    ],
+  });
 
   const port = configService.get('PORT');
   if (!port) throw new Error("Application port wasn't found");
