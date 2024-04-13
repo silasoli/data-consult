@@ -3,7 +3,6 @@ import { CouncilItem } from '../types/council.type';
 
 export class CouncilResponseDto {
   constructor(item: CouncilItem) {
-
     return {
       type: item?.tipo || null,
       name: item?.nome || null,

@@ -45,10 +45,10 @@ export enum UFEnum {
 }
 
 export class QueryCouncilDTO {
-//   @ApiProperty({ required: false })
-//   @IsOptional()
-//   @IsEnum(CouncilEnum, { message: 'Conselho não disponível.' })
-//   council: CouncilEnum;
+  //   @ApiProperty({ required: false })
+  //   @IsOptional()
+  //   @IsEnum(CouncilEnum, { message: 'Conselho não disponível.' })
+  //   council: CouncilEnum;
 
   @ApiProperty({ required: false })
   @IsOptional()
