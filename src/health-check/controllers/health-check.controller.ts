@@ -26,7 +26,7 @@ export class HealthCheckController {
       () =>
         this.http.pingCheck('Council-API', this.config.get('COUNCIL_API_URL')),
       () =>
-        this.http.pingCheck('Council-API', this.config.get('COMPANY_API_URL')),
+        this.http.pingCheck('Company-API', this.config.get('COMPANY_API_URL')),
     ]);
   }
 }

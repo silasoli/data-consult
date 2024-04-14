@@ -16,7 +16,7 @@ export class CompaniesService {
     try {
       const COMPANY_API_URL = this.config.get('COMPANY_API_URL');
       const response = await this.httpService.axiosRef.get(
-        `${COMPANY_API_URL}/${cnpj}`,
+        `${COMPANY_API_URL}/v1/cnpj/${cnpj}`,
       );
 
       if (response.data?.message === 'CNPJ inválido')
