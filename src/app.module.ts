@@ -6,6 +6,7 @@ import databaseConfig from './config/database.config';
 import { DatabaseModule } from './database/database.module';
 import { CompaniesModule } from './companies/companies.module';
 import { CouncilModule } from './council/council.module';
+import { HealthCheckModule } from './health-check/health-check.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CouncilModule } from './council/council.module';
     PeopleModule,
     CompaniesModule,
     CouncilModule,
+    HealthCheckModule,
   ],
   controllers: [AppController],
 })
