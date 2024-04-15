@@ -3,7 +3,6 @@ import { PageOptionsDto } from '../../utils/dto/PageOptionsDto.dto';
 import { IsOptional, MinLength } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
-
 export class PeopleQueryDto extends PageOptionsDto {
   @ApiPropertyOptional()
   @IsOptional()

@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PeopleService } from '../services/people.service';
 import { IDQueryDTO } from '../dto/id-query.dto';
 import { CPFQueryDTO } from '../dto/cpf-query.dto';
