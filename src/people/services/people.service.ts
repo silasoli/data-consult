@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { PeopleResponseDto } from '../dto/people-response.dto';
 import { PageDto } from '../../utils/dto/PageDto.dto';
 import { PageMetaDto } from '../../utils/dto/PageMetaDto.dto';
-import { PageOptionsDto } from '../../utils/dto/PageOptionsDto.dto';
+import { PeopleQueryDto } from '../dto/people-query.dto';
 
 @Injectable()
 export class PeopleService {
@@ -15,9 +15,25 @@ export class PeopleService {
   ) {}
 
   public async findAll(
-    dto: PageOptionsDto,
+    dto: PeopleQueryDto,
   ): Promise<PageDto<PeopleResponseDto>> {
     const queryBuilder = this.repository.createQueryBuilder('people');
+
+    if (dto.name) {
+      queryBuilder.andWhere('people.name ILIKE :name', {
+        name: `%${dto.name}%`,
+      });
+    }
+
+    if (dto.cpf) {
+      queryBuilder.andWhere('people.cpf = :cpf', { cpf: dto.cpf });
+    }
+
+    if (dto.mother_name) {
+      queryBuilder.andWhere('people.mother_name ILIKE :mother_name', {
+        mother_name: `%${dto.mother_name}%`,
+      });
+    }
 
     queryBuilder
       .orderBy('people.id', dto.order)

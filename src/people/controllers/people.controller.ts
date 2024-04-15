@@ -1,15 +1,15 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PeopleService } from '../services/people.service';
 import { IDQueryDTO } from '../dto/id-query.dto';
 import { CPFQueryDTO } from '../dto/cpf-query.dto';
 import { PeopleResponseDto } from '../dto/people-response.dto';
 import { PageDto } from '../../utils/dto/PageDto.dto';
 import { ApiPaginatedResponse } from '../../utils/decorators/api-paginated-response.decorator';
-import { PageOptionsDto } from '../../utils/dto/PageOptionsDto.dto';
+import { PeopleQueryDto } from '../dto/people-query.dto';
 
 @ApiTags('Peoples')
-@Controller('people')
+@Controller('people/gov')
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
@@ -21,7 +21,7 @@ export class PeopleController {
   })
   @Get()
   public async findAll(
-    @Query() query: PageOptionsDto,
+    @Query() query: PeopleQueryDto,
   ): Promise<PageDto<PeopleResponseDto>> {
     return this.peopleService.findAll(query);
   }
