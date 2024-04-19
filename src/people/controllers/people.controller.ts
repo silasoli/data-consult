@@ -1,5 +1,10 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { PeopleService } from '../services/people.service';
 import { IDQueryDTO } from '../dto/id-query.dto';
 import { CPFQueryDTO } from '../dto/cpf-query.dto';
@@ -7,9 +12,15 @@ import { PeopleResponseDto } from '../dto/people-response.dto';
 import { PageDto } from '../../utils/dto/PageDto.dto';
 import { ApiPaginatedResponse } from '../../utils/decorators/api-paginated-response.decorator';
 import { PeopleQueryDto } from '../dto/people-query.dto';
+import { AuthUserJwtGuard } from '../../auth/guards/auth-user-jwt.guard';
+import { Role } from '../../roles/decorators/roles.decorator';
+import Roles from '../../roles/enums/role.enum';
+import { RoleGuard } from '../../roles/guards/role.guard';
 
+@ApiBearerAuth()
 @ApiTags('Peoples')
 @Controller('people/gov')
+@UseGuards(AuthUserJwtGuard, RoleGuard)
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
@@ -19,6 +30,7 @@ export class PeopleController {
     type: PeopleResponseDto,
     description: 'People listing returned successfully',
   })
+  @Role([Roles.ADMIN, Roles.USER])
   @Get()
   public async findAll(
     @Query() query: PeopleQueryDto,
@@ -32,6 +44,7 @@ export class PeopleController {
     description: 'People returned successfully',
     type: PeopleResponseDto,
   })
+  @Role([Roles.ADMIN, Roles.USER])
   @Get('id/:id([0-9]+)')
   public async findOneByID(
     @Param() data: IDQueryDTO,
@@ -45,6 +58,7 @@ export class PeopleController {
     description: 'People returned successfully',
     type: PeopleResponseDto,
   })
+  @Role([Roles.ADMIN, Roles.USER])
   @Get('cpf/:cpf([0-9]+)')
   public async findOneByCPF(
     @Param() data: CPFQueryDTO,

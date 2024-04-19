@@ -17,7 +17,7 @@ async function bootstrap() {
     .setTitle('PK FINDER API')
     .setDescription('PK FINDER API developed by P.K INC')
     .setVersion('1.0')
-    // .addBearerAuth()
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

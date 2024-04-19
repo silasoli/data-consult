@@ -15,17 +15,23 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import {
   ApiBearerAuth,
   ApiBody,
+  ApiExcludeController,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { UserResponseDto } from '../dto/user-response.dto';
 import { MongooseIDQueryDTO } from '../../people/dto/mongoose-id-query.dto';
+import { AuthUserJwtGuard } from '../../auth/guards/auth-user-jwt.guard';
+import { RoleGuard } from '../../roles/guards/role.guard';
+import Roles from '../../roles/enums/role.enum';
+import { Role } from '../../roles/decorators/roles.decorator';
 
+@ApiExcludeController()
 @ApiBearerAuth()
 @ApiTags('Users')
 @Controller('users')
-// @UseGuards(AuthUserJwtGuard)
+@UseGuards(AuthUserJwtGuard, RoleGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -36,6 +42,7 @@ export class UsersController {
     type: UserResponseDto,
   })
   @ApiBody({ type: CreateUserDto })
+  @Role([Roles.ADMIN])
   @Post()
   public async create(@Body() dto: CreateUserDto) {
     return this.usersService.create(dto);
@@ -63,6 +70,7 @@ export class UsersController {
     status: 404,
     description: 'Usuário não encontrado.',
   })
+  @Role([Roles.ADMIN])
   @Get(':id')
   public async findOne(@Param() params: MongooseIDQueryDTO) {
     return this.usersService.findOne(params.id);
@@ -79,6 +87,7 @@ export class UsersController {
     description: 'Usuário não encontrado.',
   })
   @ApiBody({ type: UpdateUserDto })
+  @Role([Roles.ADMIN])
   @Patch(':id')
   public async update(
     @Param() params: MongooseIDQueryDTO,
@@ -97,6 +106,7 @@ export class UsersController {
     description: 'Usuário não encontrado.',
   })
   @HttpCode(204)
+  @Role([Roles.ADMIN])
   @Delete(':id')
   public async remove(@Param() params: MongooseIDQueryDTO) {
     return this.usersService.remove(params.id);
