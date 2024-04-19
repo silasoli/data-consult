@@ -7,6 +7,10 @@ import { DatabaseModule } from './database/database.module';
 import { CompaniesModule } from './companies/companies.module';
 import { CouncilModule } from './council/council.module';
 import { HealthCheckModule } from './health-check/health-check.module';
+import { UsersModule } from './users/users.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { RolesModule } from './roles/roles.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,11 +18,15 @@ import { HealthCheckModule } from './health-check/health-check.module';
       isGlobal: true,
       load: [databaseConfig],
     }),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     DatabaseModule,
     PeopleModule,
     CompaniesModule,
     CouncilModule,
     HealthCheckModule,
+    UsersModule,
+    RolesModule,
+    AuthModule,
   ],
   controllers: [AppController],
 })
