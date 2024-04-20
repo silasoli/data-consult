@@ -12,6 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
 import { VivoPreModule } from './vivo-pre/vivo-pre.module';
+import { SerasaEmailsModule } from './serasa-emails/serasa-emails.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { VivoPreModule } from './vivo-pre/vivo-pre.module';
     RolesModule,
     AuthModule,
     VivoPreModule,
+    SerasaEmailsModule,
   ],
   controllers: [AppController],
 })
