@@ -6,8 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { PeopleService } from '../services/people.service';
-import { IDQueryDTO } from '../dto/id-query.dto';
-import { CPFQueryDTO } from '../dto/cpf-query.dto';
+import { CPFQueryDTO } from '../../common/dto/cpf-query.dto';
 import { PeopleResponseDto } from '../dto/people-response.dto';
 import { PageDto } from '../../utils/dto/PageDto.dto';
 import { ApiPaginatedResponse } from '../../utils/decorators/api-paginated-response.decorator';
@@ -16,6 +15,7 @@ import { AuthUserJwtGuard } from '../../auth/guards/auth-user-jwt.guard';
 import { Role } from '../../roles/decorators/roles.decorator';
 import Roles from '../../roles/enums/role.enum';
 import { RoleGuard } from '../../roles/guards/role.guard';
+import { IDPostgresQueryDTO } from '../../common/dto/id-postgres-query.dto';
 
 @ApiBearerAuth()
 @ApiTags('Peoples')
@@ -47,7 +47,7 @@ export class PeopleController {
   @Role([Roles.ADMIN, Roles.USER])
   @Get('id/:id([0-9]+)')
   public async findOneByID(
-    @Param() data: IDQueryDTO,
+    @Param() data: IDPostgresQueryDTO,
   ): Promise<PeopleResponseDto> {
     return this.peopleService.findOneByID(data.id);
   }

@@ -13,6 +13,7 @@ import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
 import { VivoPreModule } from './vivo-pre/vivo-pre.module';
 import { SerasaEmailsModule } from './serasa-emails/serasa-emails.module';
+import { TelelistaModule } from './telelista/telelista.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { SerasaEmailsModule } from './serasa-emails/serasa-emails.module';
     AuthModule,
     VivoPreModule,
     SerasaEmailsModule,
+    TelelistaModule,
   ],
   controllers: [AppController],
 })

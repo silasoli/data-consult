@@ -8,13 +8,13 @@ import {
 } from '@nestjs/swagger';
 import { AuthUserJwtGuard } from '../../auth/guards/auth-user-jwt.guard';
 import { RoleGuard } from '../../roles/guards/role.guard';
-import { IDQueryDTO } from '../../people/dto/id-query.dto';
 import { DocumentQueryDTO } from '../dto/document-query.dto';
 import { EmailQueryDTO } from '../dto/email-query.dto';
-import { PhoneQueryDTO } from '../dto/phone-query.dto';
+import { PhoneQueryDTO } from '../../common/dto/phone-query.dto';
 import { Role } from '../../roles/decorators/roles.decorator';
 import Roles from '../../roles/enums/role.enum';
 import { VivoPreResponseDto } from '../dto/vivo-pre-response.dto';
+import { IDPostgresQueryDTO } from '../../common/dto/id-postgres-query.dto';
 
 @ApiBearerAuth()
 @ApiTags('Vivo Pre')
@@ -32,7 +32,7 @@ export class VivoPreController {
   @Role([Roles.ADMIN, Roles.USER])
   @Get('id/:id([0-9]+)')
   public async findOneByID(
-    @Param() data: IDQueryDTO,
+    @Param() data: IDPostgresQueryDTO,
   ): Promise<VivoPreResponseDto> {
     return this.vivoPreService.findOneByID(data.id);
   }
