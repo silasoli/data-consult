@@ -6,6 +6,7 @@ import { PeopleResponseDto } from '../dto/people-response.dto';
 import { PageDto } from '../../utils/dto/PageDto.dto';
 import { PageMetaDto } from '../../utils/dto/PageMetaDto.dto';
 import { PeopleQueryDto } from '../dto/people-query.dto';
+import { FormatUtil } from '../../common/utils/formatters/format.util';
 
 @Injectable()
 export class PeopleService {
@@ -20,7 +21,9 @@ export class PeopleService {
     const queryBuilder = this.repository.createQueryBuilder('people');
 
     if (dto.name) {
-      queryBuilder.andWhere('people.name ILIKE :name', {
+      dto.name = FormatUtil.capitalizeWords(dto.name);
+
+      queryBuilder.andWhere('people.name LIKE :name', {
         name: `%${dto.name}%`,
       });
     }
@@ -30,7 +33,9 @@ export class PeopleService {
     }
 
     if (dto.mother_name) {
-      queryBuilder.andWhere('people.mother_name ILIKE :mother_name', {
+      dto.mother_name = FormatUtil.capitalizeWords(dto.mother_name);
+
+      queryBuilder.andWhere('people.mother_name LIKE :mother_name', {
         mother_name: `%${dto.mother_name}%`,
       });
     }

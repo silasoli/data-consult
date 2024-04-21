@@ -21,6 +21,11 @@ class FormatUtilCls {
 
     return `(${phone.substring(0, 2)}) ${phone.substring(2, 3)} ${phone.substring(3, 7)}-${phone.substring(7)}`;
   }
+  capitalizeWords(text: string): string {
+    return text.replace(/\b\w/g, function (match) {
+      return match.toUpperCase();
+    });
+  }
 }
 
 export const FormatUtil = new FormatUtilCls();
