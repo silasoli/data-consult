@@ -37,8 +37,8 @@ export class PeopleService {
 
     queryBuilder
       .orderBy('people.id', dto.order)
-      .skip((dto.page - 1) * dto.take)
-      .take(dto.take);
+      .offset((dto.page - 1) * dto.take)
+      .limit(dto.take);
 
     const [data, itemCount] = await queryBuilder.getManyAndCount();
 
