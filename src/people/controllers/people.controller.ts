@@ -18,8 +18,8 @@ import { RoleGuard } from '../../roles/guards/role.guard';
 import { IDPostgresQueryDTO } from '../../common/dto/id-postgres-query.dto';
 
 @ApiBearerAuth()
-@ApiTags('Peoples')
-@Controller('people/gov')
+@ApiTags('Gov')
+@Controller('gov')
 @UseGuards(AuthUserJwtGuard, RoleGuard)
 export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}

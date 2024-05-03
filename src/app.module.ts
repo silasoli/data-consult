@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { VivoPreModule } from './vivo-pre/vivo-pre.module';
 import { SerasaEmailsModule } from './serasa-emails/serasa-emails.module';
 import { TelelistaModule } from './telelista/telelista.module';
+import { RoutesModule } from './routes/routes.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { TelelistaModule } from './telelista/telelista.module';
     VivoPreModule,
     SerasaEmailsModule,
     TelelistaModule,
+    RoutesModule,
   ],
   controllers: [AppController],
 })
