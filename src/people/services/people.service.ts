@@ -24,7 +24,7 @@ export class PeopleService {
       dto.name = FormatUtil.capitalizeWords(dto.name);
 
       queryBuilder.andWhere('people.name LIKE :name', {
-        name: `%${dto.name}%`,
+        name: `${dto.name}%`,
       });
     }
 
@@ -36,7 +36,7 @@ export class PeopleService {
       dto.mother_name = FormatUtil.capitalizeWords(dto.mother_name);
 
       queryBuilder.andWhere('people.mother_name LIKE :mother_name', {
-        mother_name: `%${dto.mother_name}%`,
+        mother_name: `${dto.mother_name}%`,
       });
     }
 
