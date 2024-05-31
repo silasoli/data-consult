@@ -3,7 +3,18 @@ import { Telelista } from '../../database/entities/telelista.entity';
 
 export class TelelistaResponseDto {
   constructor(data: Telelista) {
-    Object.assign(this, data);
+    this.id = data.id;
+    this.cpf = data.cpf.substring(3); // Remove os três primeiros caracteres do CPF
+    this.name = data.name;
+    this.place_type = data.place_type;
+    this.street = data.street;
+    this.house_number = data.house_number;
+    this.complement = data.complement;
+    this.neighborhood = data.neighborhood;
+    this.cep = data.cep;
+    this.city = data.city;
+    this.state = data.state;
+    this.phone = data.phone;
   }
 
   @ApiProperty({ required: true })

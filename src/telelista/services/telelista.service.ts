@@ -24,7 +24,7 @@ export class TelelistaService {
   } 
 
   public async findByCPF(cpf: string): Promise<TelelistaResponseDto[]> {
-    const data = await this.repository.find({ where: { cpf } });
+    const data = await this.repository.find({ where: { cpf: `000${cpf}` } });
 
     return data.map((item) => new TelelistaResponseDto(item));
   }
