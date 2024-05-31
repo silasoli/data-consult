@@ -43,10 +43,10 @@ export class SerasaEmailsService {
     const queryBuilder = this.repository.createQueryBuilder('people');
 
     queryBuilder.andWhere('people.name LIKE :name', {
-      name: `${name.toLocaleLowerCase()}%`,
+      name: `${name.toLocaleUpperCase()}%`,
     });
 
-    queryBuilder.offset((1 - 1) * 10).limit(10);
+    queryBuilder.offset((1 - 1) * 20).limit(20);
 
     const serasaEmails = await queryBuilder.getMany();
 
