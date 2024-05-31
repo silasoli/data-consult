@@ -30,7 +30,17 @@ export class TelelistaService {
   }
 
   public async findByName(name: string): Promise<TelelistaResponseDto[]> {
-    const data = await this.repository.find({ where: { name } });
+    // const data = await this.repository.find({ where: { name } });
+
+    const queryBuilder = this.repository.createQueryBuilder('telelista');
+
+    queryBuilder.andWhere('telelista.name LIKE :name', {
+      name: `${name.toLocaleUpperCase()}%`,
+    });
+
+    queryBuilder.offset((1 - 1) * 20).limit(20);
+
+    const data = await queryBuilder.getMany();
 
     return data.map((item) => new TelelistaResponseDto(item));
   }

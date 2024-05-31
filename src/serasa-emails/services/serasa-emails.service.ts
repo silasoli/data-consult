@@ -40,9 +40,9 @@ export class SerasaEmailsService {
 
     // return [serasaEmails].map((item) => new SerasaEmailsResponseDto(item));
 
-    const queryBuilder = this.repository.createQueryBuilder('people');
+    const queryBuilder = this.repository.createQueryBuilder('serasa_emails');
 
-    queryBuilder.andWhere('people.name LIKE :name', {
+    queryBuilder.andWhere('serasa_emails.name LIKE :name', {
       name: `${name.toLocaleUpperCase()}%`,
     });
 
