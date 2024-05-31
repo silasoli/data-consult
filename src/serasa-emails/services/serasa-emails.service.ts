@@ -32,12 +32,24 @@ export class SerasaEmailsService {
   }
 
   public async findByName(name: string): Promise<SerasaEmailsResponseDto[]> {
-    const serasaEmails = await this.repository.findOne({
-      where: {
-        name: Like(`${name.toLocaleUpperCase()}%`),
-      },
+    // const serasaEmails = await this.repository.findOne({
+    //   where: {
+    //     name: Like(`${name.toLocaleUpperCase()}%`),
+    //   },
+    // });
+
+    // return [serasaEmails].map((item) => new SerasaEmailsResponseDto(item));
+
+    const queryBuilder = this.repository.createQueryBuilder('people');
+
+    queryBuilder.andWhere('people.name LIKE :name', {
+      name: `${name.toLocaleLowerCase()}%`,
     });
 
-    return [serasaEmails].map((item) => new SerasaEmailsResponseDto(item));
+    queryBuilder.offset((1 - 1) * 10).limit(10);
+
+    const serasaEmails = await queryBuilder.getMany();
+
+    return serasaEmails.map((item) => new SerasaEmailsResponseDto(item));
   }
 }
