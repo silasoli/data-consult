@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SerasaEmails } from '../../database/entities/serasa-emails.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { SerasaEmailsResponseDto } from '../dto/serasa-emails-response.dto';
 
 @Injectable()
@@ -24,13 +24,19 @@ export class SerasaEmailsService {
   }
 
   public async findByEmail(email: string): Promise<SerasaEmailsResponseDto[]> {
-    const serasaEmails = await this.repository.find({ where: { email } });
+    const serasaEmails = await this.repository.find({
+      where: { email: email.toLocaleLowerCase() },
+    });
 
     return serasaEmails.map((item) => new SerasaEmailsResponseDto(item));
   }
 
   public async findByName(name: string): Promise<SerasaEmailsResponseDto[]> {
-    const serasaEmails = await this.repository.find({ where: { name } });
+    const serasaEmails = await this.repository.find({
+      where: {
+        name: Like(`${name.toLocaleUpperCase()}%`),
+      },
+    });
 
     return serasaEmails.map((item) => new SerasaEmailsResponseDto(item));
   }
