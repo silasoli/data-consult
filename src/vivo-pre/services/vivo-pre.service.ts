@@ -13,36 +13,27 @@ export class VivoPreService {
     private readonly repository: Repository<VivoPre>,
   ) {}
 
-  // public async findAll(dto: any): Promise<PageDto<any>> {
-  //   const queryBuilder = this.repository.createQueryBuilder('vivo_pre');
+  public async findByName(name: string): Promise<VivoPreResponseDto[]> {
+    // const serasaEmails = await this.repository.findOne({
+    //   where: {
+    //     name: Like(`${name.toLocaleUpperCase()}%`),
+    //   },
+    // });
 
-  // if (dto.name) {
-  //   queryBuilder.andWhere('people.name ILIKE :name', {
-  //     name: `%${dto.name}%`,
-  //   });
-  // }
+    // return [serasaEmails].map((item) => new SerasaEmailsResponseDto(item));
 
-  // if (dto.cpf) {
-  //   queryBuilder.andWhere('people.cpf = :cpf', { cpf: dto.cpf });
-  // }
+    const queryBuilder = this.repository.createQueryBuilder('vivo_pre');
 
-  // if (dto.mother_name) {
-  //   queryBuilder.andWhere('people.mother_name ILIKE :mother_name', {
-  //     mother_name: `%${dto.mother_name}%`,
-  //   });
-  // }
+    queryBuilder.andWhere('vivo_pre.name LIKE :name', {
+      name: `${name.toLocaleUpperCase()}%`,
+    });
 
-  //   queryBuilder
-  //     .orderBy('vivo_pre.id', dto.order)
-  //     .skip((dto.page - 1) * dto.take)
-  //     .take(dto.take);
+    queryBuilder.offset((1 - 1) * 20).limit(20);
 
-  //   const [data, itemCount] = await queryBuilder.getManyAndCount();
+    const serasaEmails = await queryBuilder.getMany();
 
-  //   const pageMetaDto = new PageMetaDto({ itemCount, pageOptionsDto: dto });
-
-  //   return new PageDto(data, pageMetaDto);
-  // }
+    return serasaEmails.map((item) => new VivoPreResponseDto(item));
+  }
 
   public async findOneByID(id: number): Promise<VivoPreResponseDto> {
     const vivopre = await this.repository.findOneBy({ id });
@@ -65,7 +56,9 @@ export class VivoPreService {
   }
 
   public async findOneByEmail(email: string): Promise<VivoPreResponseDto> {
-    const vivopre = await this.repository.findOneBy({ email });
+    const vivopre = await this.repository.findOneBy({
+      email: email.toLocaleLowerCase(),
+    });
 
     return new VivoPreResponseDto(vivopre);
   }

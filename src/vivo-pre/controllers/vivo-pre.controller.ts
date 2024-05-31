@@ -15,6 +15,7 @@ import { Role } from '../../roles/decorators/roles.decorator';
 import Roles from '../../roles/enums/role.enum';
 import { VivoPreResponseDto } from '../dto/vivo-pre-response.dto';
 import { IDPostgresQueryDTO } from '../../common/dto/id-postgres-query.dto';
+import { NameQueryDTO } from '../../common/dto/name-query.dto';
 
 @ApiBearerAuth()
 @ApiTags('Vivo Pre')
@@ -77,5 +78,20 @@ export class VivoPreController {
     @Param() data: PhoneQueryDTO,
   ): Promise<VivoPreResponseDto> {
     return this.vivoPreService.findOneByPhone(data.phone);
+  }
+
+
+  @ApiOperation({ summary: 'Search people by Name' })
+  @ApiResponse({
+    status: 200,
+    description: 'Person returned successfully',
+    type: [VivoPreResponseDto],
+  })
+  @Role([Roles.ADMIN, Roles.USER])
+  @Get('name/:name')
+  public async findByName(
+    @Param() data: NameQueryDTO,
+  ): Promise<VivoPreResponseDto[]> {
+    return this.vivoPreService.findByName(data.name);
   }
 }
