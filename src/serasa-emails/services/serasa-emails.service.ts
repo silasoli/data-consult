@@ -32,12 +32,12 @@ export class SerasaEmailsService {
   }
 
   public async findByName(name: string): Promise<SerasaEmailsResponseDto[]> {
-    const serasaEmails = await this.repository.find({
+    const serasaEmails = await this.repository.findOne({
       where: {
         name: Like(`${name.toLocaleUpperCase()}%`),
       },
     });
 
-    return serasaEmails.map((item) => new SerasaEmailsResponseDto(item));
+    return [serasaEmails].map((item) => new SerasaEmailsResponseDto(item));
   }
 }
