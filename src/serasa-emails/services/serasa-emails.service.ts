@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SerasaEmails } from '../../database/entities/serasa-emails.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { SerasaEmailsResponseDto } from '../dto/serasa-emails-response.dto';
 
 @Injectable()
